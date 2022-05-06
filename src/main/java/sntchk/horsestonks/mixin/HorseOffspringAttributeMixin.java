@@ -1,25 +1,26 @@
 package sntchk.horsestonks.mixin;
 
-import net.minecraft.entity.AgeableEntity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.horse.AbstractHorseEntity;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.horse.AbstractHorse;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(AbstractHorseEntity.class)
-public abstract class HorseOffspringAttributeMixin extends AnimalEntity {
+@Mixin(AbstractHorse.class)
+public abstract class HorseOffspringAttributeMixin extends Animal {
 
-    protected HorseOffspringAttributeMixin(EntityType<? extends AnimalEntity> p_i48568_1_, World p_i48568_2_) {
-        super(p_i48568_1_, p_i48568_2_);
+
+    protected HorseOffspringAttributeMixin(EntityType<? extends Animal> p_27557_, Level p_27558_) {
+        super(p_27557_, p_27558_);
     }
 
     @Inject(method="setOffspringAttributes", at = @At(value = "TAIL"))
-    protected void onSetOffspringAttributes(AgeableEntity mate, AbstractHorseEntity child, CallbackInfo ci){
+    protected void onSetOffspringAttributes(AgeableMob mate, AbstractHorse child, CallbackInfo ci){
         //Health
         double minHealth = Math.min(this.getAttributeBaseValue(Attributes.MAX_HEALTH), mate.getAttributeBaseValue(Attributes.MAX_HEALTH));
         if(child.getAttributeBaseValue(Attributes.MAX_HEALTH) < minHealth)
@@ -38,6 +39,5 @@ public abstract class HorseOffspringAttributeMixin extends AnimalEntity {
         System.out.printf("Jump:   A(%g) + B(%g) --> C(%g)\n", this.getAttributeBaseValue(Attributes.JUMP_STRENGTH), mate.getAttributeBaseValue(Attributes.JUMP_STRENGTH), child.getAttributeBaseValue(Attributes.JUMP_STRENGTH));
         System.out.printf("Speed:  A(%g) + B(%g) --> C(%g)\n", this.getAttributeBaseValue(Attributes.MOVEMENT_SPEED), mate.getAttributeBaseValue(Attributes.MOVEMENT_SPEED), child.getAttributeBaseValue(Attributes.MOVEMENT_SPEED));
 */
-
     }
 }
