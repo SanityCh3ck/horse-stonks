@@ -1,12 +1,12 @@
 {
   "required": true,
-  "minVersion": "0.8",
   "package": "sntchk.horsestonks.mixin",
   "compatibilityLevel": "JAVA_8",
+  "refmap": "horsestonks.refmap.json",
   "mixins": [
-    "HorseChildAttributeMixin"
+    "HorseOffspringAttributeMixin"
   ],
-  "injectors": {
-    "defaultRequire": 1
-  }
+  "client": [
+  ],
+  "minVersion": "0.8"
 }
